@@ -1,15 +1,27 @@
 package com.codurance.bank;
 
+import java.util.List;
+
 public class AccountService {
+    private final TransactionRepository transactionRepository;
+    private final StatementPrinter statementPrinter;
+
+    public AccountService(TransactionRepository transactionRepository, StatementPrinter statementPrinter) {
+
+        this.transactionRepository = transactionRepository;
+        this.statementPrinter = statementPrinter;
+    }
+
     public void deposit(int amount) {
-        throw new UnsupportedOperationException("Please, implement AccountService.deposit");
+        transactionRepository.deposit(amount);
     }
 
     public void withdraw(int amount) {
-        throw new UnsupportedOperationException("Please, implement AccountService.withdraw");
+        transactionRepository.withdraw(amount);
     }
 
     public void printStatement() {
-        throw new UnsupportedOperationException("Please, implement AccountService.printStatement");
+        List<Transaction> transactions = transactionRepository.allTransactions();
+        statementPrinter.print(transactions);
     }
 }
